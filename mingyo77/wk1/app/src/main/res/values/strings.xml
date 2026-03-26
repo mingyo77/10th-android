@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">UMC_task</string>
+    <string name="string_how_about">오늘하루는 어땠나요?</string>
+    <string name="string_choose">감정우표를 선택해주세요</string>
+    <string name="string_deliver">선택한 감정우표를 기반으로 맞춤형 질문이 배달됩니다</string>
+    <string name="string_happy">더없이 행복한 하루였어요</string>
+    <string name="string_excited">들뜨고 흥분돼요</string>
+    <string name="string_common">평범한 하루였어요</string>
+    <string name="string_nervous">생각이 많아지고 불안해요</string>
+    <string name="string_mad">부글부글 화가나요</string>
+</resources>
