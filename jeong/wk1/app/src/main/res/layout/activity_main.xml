@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5"
+    android:background="@color/background_gray"
     tools:context=".MainActivity">
 
     <ImageButton
@@ -14,14 +14,14 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="26dp"
         android:background="@android:color/transparent"
-        android:contentDescription="뒤로가기"
+        android:contentDescription="@string/back_button_description"
         android:padding="2dp"
         android:src="@drawable/ic_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:id="@+id/contentLayout"
+        android:id="@+id/layoutContent"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -42,9 +42,9 @@
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="오늘 하루는 어땠나요?"
+            android:text="@string/title_today_mood"
             android:fontFamily="@font/titlefont"
-            android:textColor="#000000"
+            android:textColor="@color/emotion_text_default"
             android:textSize="30sp"
             android:textStyle="normal"
             android:textAlignment="center" />
@@ -53,9 +53,9 @@
             android:id="@+id/tvSubtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="감정우표를 선택해주세요"
+            android:text="@string/subtitle_select_stamp"
             android:fontFamily="@font/titlefont"
-            android:textColor="#000000"
+            android:textColor="@color/emotion_text_default"
             android:textSize="22sp"
             android:textStyle="normal"
             android:textAlignment="center"
@@ -67,9 +67,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="14dp"
-            android:text="선택한 감정우표를 기반으로 맞춤형 질문이 배달됩니다"
+            android:text="@string/desc_custom_question"
             android:fontFamily="@font/scdream"
-            android:textColor="#000000"
+            android:textColor="@color/emotion_text_default"
             android:textSize="12sp"
             android:textStyle="normal"
             android:textAlignment="center"
@@ -90,7 +90,7 @@
                 android:id="@+id/ivHappy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="행복"
+                android:contentDescription="@string/emotion_happy"
                 android:src="@drawable/ic_stamp_happy" />
 
             <TextView
@@ -98,9 +98,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:text="더없이 행복한 하루였어요"
+                android:text="@string/emotion_happy_text"
                 android:fontFamily="@font/titlefont"
-                android:textColor="#000000"
+                android:textColor="@color/emotion_text_default"
                 android:textSize="20sp"
                 android:textAlignment="center" />
         </LinearLayout>
@@ -119,7 +119,7 @@
                 android:id="@+id/ivExcited"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="들뜸"
+                android:contentDescription="@string/emotion_excited"
                 android:src="@drawable/ic_stamp_excited" />
 
             <TextView
@@ -127,9 +127,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:text="들뜨고 흥분돼요"
+                android:text="@string/emotion_excited_text"
                 android:fontFamily="@font/titlefont"
-                android:textColor="#000000"
+                android:textColor="@color/emotion_text_default"
                 android:textSize="20sp"
                 android:textAlignment="center" />
         </LinearLayout>
@@ -148,7 +148,7 @@
                 android:id="@+id/ivNormal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="평범"
+                android:contentDescription="@string/emotion_normal"
                 android:src="@drawable/ic_stamp_normal" />
 
             <TextView
@@ -156,9 +156,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:text="평범한 하루였어요"
+                android:text="@string/emotion_normal_text"
                 android:fontFamily="@font/titlefont"
-                android:textColor="#000000"
+                android:textColor="@color/emotion_text_default"
                 android:textSize="20sp"
                 android:textAlignment="center" />
         </LinearLayout>
@@ -177,7 +177,7 @@
                 android:id="@+id/ivAnxious"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="불안"
+                android:contentDescription="@string/emotion_anxious"
                 android:src="@drawable/ic_stamp_anxious" />
 
             <TextView
@@ -185,9 +185,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:text="생각이 많아지고 불안해요"
+                android:text="@string/emotion_anxious_text"
                 android:fontFamily="@font/titlefont"
-                android:textColor="#000000"
+                android:textColor="@color/emotion_text_default"
                 android:textSize="20sp"
                 android:textAlignment="center" />
         </LinearLayout>
@@ -206,7 +206,7 @@
                 android:id="@+id/ivAngry"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="화남"
+                android:contentDescription="@string/emotion_angry"
                 android:src="@drawable/ic_stamp_angry" />
 
             <TextView
@@ -214,9 +214,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:text="부글부글 화가 나요"
+                android:text="@string/emotion_angry_text"
                 android:fontFamily="@font/titlefont"
-                android:textColor="#000000"
+                android:textColor="@color/emotion_text_default"
                 android:textSize="20sp"
                 android:textAlignment="center" />
         </LinearLayout>
