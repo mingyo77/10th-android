@@ -1,67 +1,61 @@
 package com.example.umcweek1
 
-import android.graphics.Color
 import android.os.Bundle
-import android.widget.ImageButton
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.ComponentActivity
+import androidx.core.content.ContextCompat
+import com.example.umcweek1.databinding.ActivityMainBinding
 
 class MainActivity : ComponentActivity() {
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val btnBack = findViewById<ImageButton>(R.id.btnBack)
-
-        val layoutHappy = findViewById<LinearLayout>(R.id.layoutHappy)
-        val layoutExcited = findViewById<LinearLayout>(R.id.layoutExcited)
-        val layoutNormal = findViewById<LinearLayout>(R.id.layoutNormal)
-        val layoutAnxious = findViewById<LinearLayout>(R.id.layoutAnxious)
-        val layoutAngry = findViewById<LinearLayout>(R.id.layoutAngry)
-
-        val tvHappy = findViewById<TextView>(R.id.tvHappy)
-        val tvExcited = findViewById<TextView>(R.id.tvExcited)
-        val tvNormal = findViewById<TextView>(R.id.tvNormal)
-        val tvAnxious = findViewById<TextView>(R.id.tvAnxious)
-        val tvAngry = findViewById<TextView>(R.id.tvAngry)
+        val emotionTextViews = listOf(
+            binding.tvHappy,
+            binding.tvExcited,
+            binding.tvNormal,
+            binding.tvAnxious,
+            binding.tvAngry
+        )
+        var selectedEmotionTextView: TextView? = null
 
         fun resetTextColor() {
-            val defaultColor = Color.parseColor("#000000")
-            tvHappy.setTextColor(defaultColor)
-            tvExcited.setTextColor(defaultColor)
-            tvNormal.setTextColor(defaultColor)
-            tvAnxious.setTextColor(defaultColor)
-            tvAngry.setTextColor(defaultColor)
+            val defaultColor = ContextCompat.getColor(this, R.color.emotion_text_default)
+            emotionTextViews.forEach { it.setTextColor(defaultColor) }
         }
 
-        layoutHappy.setOnClickListener {
-            resetTextColor()
-            tvHappy.setTextColor(Color.parseColor("#FFD54F"))
+        fun setEmotionSelection(targetTextView: TextView, selectedColorResId: Int) {
+            if (selectedEmotionTextView == targetTextView) {
+                resetTextColor()
+                selectedEmotionTextView = null
+            } else {
+                resetTextColor()
+                targetTextView.setTextColor(ContextCompat.getColor(this, selectedColorResId))
+                selectedEmotionTextView = targetTextView
+            }
         }
 
-        layoutExcited.setOnClickListener {
-            resetTextColor()
-            tvExcited.setTextColor(Color.parseColor("#64B5F6"))
+        binding.layoutHappy.setOnClickListener {
+            setEmotionSelection(binding.tvHappy, R.color.emotion_happy_selected)
+        }
+        binding.layoutExcited.setOnClickListener {
+            setEmotionSelection(binding.tvExcited, R.color.emotion_excited_selected)
+        }
+        binding.layoutNormal.setOnClickListener {
+            setEmotionSelection(binding.tvNormal, R.color.emotion_normal_selected)
+        }
+        binding.layoutAnxious.setOnClickListener {
+            setEmotionSelection(binding.tvAnxious, R.color.emotion_anxious_selected)
+        }
+        binding.layoutAngry.setOnClickListener {
+            setEmotionSelection(binding.tvAngry, R.color.emotion_angry_selected)
         }
 
-        layoutNormal.setOnClickListener {
-            resetTextColor()
-            tvNormal.setTextColor(Color.parseColor("#9575CD"))
-        }
-
-        layoutAnxious.setOnClickListener {
-            resetTextColor()
-            tvAnxious.setTextColor(Color.parseColor("#81C784"))
-        }
-
-        layoutAngry.setOnClickListener {
-            resetTextColor()
-            tvAngry.setTextColor(Color.parseColor("#E57373"))
-        }
-
-        btnBack.setOnClickListener {
+        binding.btnBack.setOnClickListener {
             finish()
         }
     }
