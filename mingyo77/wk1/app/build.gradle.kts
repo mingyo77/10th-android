@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.umc_task"
+    namespace = "com.example.wk1"
     compileSdk {
         version = release(36) {
             minorApiLevel = 1
@@ -11,7 +11,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.example.umc_task"
+        applicationId = "com.example.wk1"
         minSdk = 24
         targetSdk = 36
         versionCode = 1
