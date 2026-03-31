@@ -28,7 +28,7 @@ class CartFragment : Fragment() {
 
         binding.btnPurchase.setOnClickListener {
             Toast.makeText(requireContext(),
-                getString(R.string.msg_move_to_purchase), Toast.LENGTH_SHORT).show()
+                getString(R.string.string_msg_move_to_purchase), Toast.LENGTH_SHORT).show()
             parentFragmentManager.beginTransaction()
                 .replace(R.id.main_container, PurchaseFragment())
                 .commit()
