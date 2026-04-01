@@ -7,5 +7,8 @@
     <string name="string_menu_purchase">구매내역</string>
     <string name="string_menu_profile">프로필</string>
     <string name="string_purchase">주문하기</string>
-    <string name="msg_move_to_purchase">구매 화면으로 이동합니다.</string>
+    <string name="string_msg_move_to_purchase">구매 화면으로 이동합니다.</string>
+    <string name="string_empty_cart">장바구니가 비어 있습니다.</string>
+    <string name="string_empty_cart2">제품을 추가하면 여기에 표시됩니다.</string>
+    <string name="string_wishlist">위시리스트</string>
 </resources>

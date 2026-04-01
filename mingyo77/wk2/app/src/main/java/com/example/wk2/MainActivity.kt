@@ -20,10 +20,11 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.main_container, HomeFragment())
-            .commit()
-
+        if(savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.main_container, HomeFragment())
+                .commit()
+        }
         binding.bottomNav.setOnItemSelectedListener{ item->
             when(item.itemId){
                 R.id.homeFragment -> { setFragment(HomeFragment()); true }
