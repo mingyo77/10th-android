@@ -5,55 +5,96 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
+import com.example.nikeapp.databinding.FragmentShopBinding
+import com.google.android.material.tabs.TabLayout
+import kotlinx.coroutines.launch
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [ShopFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ShopFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var _binding: FragmentShopBinding? = null
+    private val binding get() = _binding!!
+    private lateinit var dataStore: ProductDataStore
+    private lateinit var adapter: ProductAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_shop, container, false)
+    ): View {
+        _binding = FragmentShopBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ShopFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ShopFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        dataStore = ProductDataStore(requireContext())
+
+        val dummyList = mutableListOf(
+            ProductData("Nike Everyday Plus", "₩10,000", R.drawable.home_bg),
+            ProductData("Nike Elite Crew", "₩16,000", R.drawable.home_bg),
+            ProductData("Nike Air Force 1", "₩115,000", R.drawable.home_bg),
+            ProductData("Jordan ENike", "₩115,000", R.drawable.home_bg)
+        )
+
+        adapter = ProductAdapter(dummyList, onHeartClick = { product ->
+            lifecycleScope.launch {
+                dataStore.toggleWishlist(product)
+            }
+        })
+
+        binding.shopProductRv.adapter = adapter
+        binding.shopProductRv.layoutManager = GridLayoutManager(requireContext(), 2)
+
+        // 탭 클릭 이벤트
+        binding.shopTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                when (tab?.position) {
+                    0 -> { // 전체
+                        binding.shopProductRv.visibility = View.VISIBLE
+                        childFragmentManager.beginTransaction()
+                            .replace(R.id.shop_fragment_container, Fragment())
+                            .commit()
+                    }
+                    1 -> { // Tops & T-Shirts
+                        binding.shopProductRv.visibility = View.GONE
+                        childFragmentManager.beginTransaction()
+                            .replace(R.id.shop_fragment_container, TopsTshirtsFragment())
+                            .commit()
+                    }
+                    2 -> { // Sale
+                        binding.shopProductRv.visibility = View.GONE
+                        childFragmentManager.beginTransaction()
+                            .replace(R.id.shop_fragment_container, SaleFragment())
+                            .commit()
+                    }
                 }
             }
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
+        })
+
+        // DataStore 저장
+        lifecycleScope.launch {
+            dataStore.getProducts(ProductDataStore.SHOP_PRODUCTS_KEY).collect { savedList ->
+                if (savedList.isEmpty()) {
+                    dataStore.saveProducts(ProductDataStore.SHOP_PRODUCTS_KEY, dummyList)
+                }
+            }
+        }
+
+        // 위시리스트 상태 업데이트
+        lifecycleScope.launch {
+            dataStore.getProducts(ProductDataStore.WISHLIST_PRODUCTS_KEY).collect { wishlist ->
+                val names = wishlist.map { it.name }.toSet()
+                adapter.updateWishlist(names)
+            }
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

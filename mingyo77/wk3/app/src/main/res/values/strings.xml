@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">wk2</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="string_menu_home">홈</string>
+    <string name="string_menu_cart">장바구니</string>
+    <string name="string_menu_wishlist">위시리스트</string>
+    <string name="string_menu_purchase">구매하기</string>
+    <string name="string_menu_profile">프로필</string>
+    <string name="string_purchase">주문하기</string>
+    <string name="string_msg_move_to_purchase">구매 화면으로 이동합니다.</string>
+    <string name="string_empty_cart">장바구니가 비어 있습니다.</string>
+    <string name="string_empty_cart2">제품을 추가하면 여기에 표시됩니다.</string>
+    <string name="string_wishlist">위시리스트</string>
+    <string name="string_discover">Discover</string>
+    <string name="string_calender">9월 4일 목요일</string>
+    <string name="string_nike_shoes">나이키</string>
+    <string name="string_dollor">$200</string>
+    <string name="string_add_cart">장바구니에 추가</string>
+    <string name="string_btn_wishlist">위시리스트</string>
+    <string name="string_btn_choose_size">사이즈선택</string>
+    <string name="string_descript">묘사묘사묘사묘사묘사묘사묘사</string>
+    <string name="string_price">가격</string>
+    <string name="string_exShoes">나이키신발나이키신발</string>
+</resources>

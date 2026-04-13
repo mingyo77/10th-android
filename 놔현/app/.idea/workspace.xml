@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="62f8d0df-3078-4e3b-b305-3833e012da46" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../mission2/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mission2/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mission2/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mission2/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mission2/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mission2/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mission2/app/src/main/java/com/example/nikeapp/CartFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../mission2/app/src/main/java/com/example/nikeapp/CartFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mission2/app/src/main/java/com/example/nikeapp/HomeFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../mission2/app/src/main/java/com/example/nikeapp/HomeFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mission2/app/src/main/java/com/example/nikeapp/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../mission2/app/src/main/java/com/example/nikeapp/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mission2/app/src/main/java/com/example/nikeapp/ShopFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../mission2/app/src/main/java/com/example/nikeapp/ShopFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mission2/app/src/main/java/com/example/nikeapp/WishlistFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../mission2/app/src/main/java/com/example/nikeapp/WishlistFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mission2/app/src/main/res/layout/fragment_home.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mission2/app/src/main/res/layout/fragment_home.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mission2/app/src/main/res/layout/fragment_shop.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mission2/app/src/main/res/layout/fragment_shop.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mission2/app/src/main/res/layout/fragment_wishlist.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mission2/app/src/main/res/layout/fragment_wishlist.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "NohAhyeon"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/NohAhyeon/10th-android",
+    "accountId": "3b9e989b-e253-46ea-acbb-4f7272b5a7ec"
+  }
+}]]></component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 4
+}]]></component>
+  <component name="ProjectId" id="3Bvub1EqyGXZ4B5KJdblANqcC1u" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "android.gradle.sync.needed": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "git-widget-placeholder": "mission2",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/ahyeon/10th-android/놔현/app"
+  }
+}]]></component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="62f8d0df-3078-4e3b-b305-3833e012da46" name="Changes" comment="" />
+      <created>1775381934006</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1775381934006</updated>
+    </task>
+    <servers />
+  </component>
+</project>
