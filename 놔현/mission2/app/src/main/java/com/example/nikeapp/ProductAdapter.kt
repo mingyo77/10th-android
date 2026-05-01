@@ -26,7 +26,6 @@ class ProductAdapter(
             }
 
             // 하트 클릭
-            // 하트 클릭
             binding.itemProductHeartIv.setOnClickListener {
                 if (wishlistNames.contains(product.name)) {
                     wishlistNames.remove(product.name)
