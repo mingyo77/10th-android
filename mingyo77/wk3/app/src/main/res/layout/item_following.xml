@@ -5,14 +5,18 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:gravity="center"
-    android:layout_marginEnd="16dp"> <ImageView
-    android:id="@+id/item_following_img"
-    android:layout_width="80dp"
-    android:layout_height="80dp"
-    android:background="#EEEEEE" tools:src="@tools:sample/avatars" /> <TextView
-    android:id="@+id/item_following_name"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="8dp"
-    android:textSize="12sp"
-    tools:text="User Name" /> </LinearLayout>
+    android:layout_marginEnd="16dp">
+    <ImageView
+        android:id="@+id/item_following_img"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:background="#EEEEEE"
+        tools:src="@tools:sample/avatars" />
+    <TextView
+        android:id="@+id/item_following_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textSize="12sp"
+        tools:text="User Name" />
+</LinearLayout>
