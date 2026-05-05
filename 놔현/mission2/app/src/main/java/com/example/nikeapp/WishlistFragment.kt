@@ -5,17 +5,21 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.nikeapp.databinding.FragmentWishlistBinding
+import com.example.nikeapp.viewmodel.WishlistViewModel
+import com.example.nikeapp.viewmodel.WishlistViewModelFactory
 import kotlinx.coroutines.launch
 
 class WishlistFragment : Fragment() {
 
     private var _binding: FragmentWishlistBinding? = null
     private val binding get() = _binding!!
-    private lateinit var dataStore: ProductDataStore
-    private lateinit var adapter: ProductAdapter
+    private val viewModel: WishlistViewModel by viewModels {
+        WishlistViewModelFactory(requireContext())
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,28 +32,16 @@ class WishlistFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        dataStore = ProductDataStore(requireContext())
+        viewModel.loadWishlist()
 
-        adapter = ProductAdapter(mutableListOf(), onHeartClick = { product ->
-            lifecycleScope.launch {
-                dataStore.toggleWishlist(product)
-            }
-        })
-
-        binding.wishlistRv.adapter = adapter
-        binding.wishlistRv.layoutManager = GridLayoutManager(requireContext(), 2)
-
-        // 위시리스트 실시간 관찰
         lifecycleScope.launch {
-            dataStore.getProducts(ProductDataStore.WISHLIST_PRODUCTS_KEY).collect { wishlist ->
-                val newList = wishlist.toMutableList()
-                adapter = ProductAdapter(newList, onHeartClick = { product ->
-                    lifecycleScope.launch {
-                        dataStore.toggleWishlist(product)
-                    }
+            viewModel.wishlist.collect { wishlist ->
+                val adapter = ProductAdapter(wishlist.toMutableList(), onHeartClick = { product ->
+                    viewModel.toggleWishlist(product)
                 })
                 adapter.updateWishlist(wishlist.map { it.name }.toSet())
                 binding.wishlistRv.adapter = adapter
+                binding.wishlistRv.layoutManager = GridLayoutManager(requireContext(), 2)
             }
         }
     }
