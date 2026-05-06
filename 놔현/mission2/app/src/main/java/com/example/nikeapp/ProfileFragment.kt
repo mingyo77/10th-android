@@ -5,17 +5,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.nikeapp.databinding.FragmentProfileBinding
+import com.example.nikeapp.viewmodel.ProfileViewModel
 import kotlinx.coroutines.launch
 
 class ProfileFragment : Fragment() {
 
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
-    private val apiKey = "reqres_df73b9dd436f45ee8ae8925f9dd0f2aa"
+    private val viewModel: ProfileViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,38 +30,30 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // 1번 유저 정보 가져오기
+        // ViewModel에 데이터 요청
+        viewModel.loadUser()
+        viewModel.loadUserList()
+
+        // 유저 정보 관찰
         lifecycleScope.launch {
-            try {
-                val response = ApiClient.userService.getUser(apiKey)
-                if (response.isSuccessful) {
-                    val user = response.body()?.data
-                    user?.let {
-                        binding.profileNameTv.text = "${it.firstName} ${it.lastName}"
-                        binding.profileEmailTv.text = it.email
-                        Glide.with(requireContext())
-                            .load(it.avatar)
-                            .circleCrop()
-                            .into(binding.profileIconIv)
-                    }
+            viewModel.user.collect { user ->
+                user?.let {
+                    binding.profileNameTv.text = "${it.firstName} ${it.lastName}"
+                    binding.profileEmailTv.text = it.email
+                    Glide.with(requireContext())
+                        .load(it.avatar)
+                        .circleCrop()
+                        .into(binding.profileIconIv)
                 }
-            } catch (e: Exception) {
-                e.printStackTrace()
             }
         }
 
-        // 유저 리스트 가져오기
+        // 유저 리스트 관찰
         lifecycleScope.launch {
-            try {
-                val response = ApiClient.userService.getUserList(apiKey)
-                if (response.isSuccessful) {
-                    val userList = response.body()?.data?.toMutableList() ?: mutableListOf()
-                    val adapter = FollowingAdapter(userList)
-                    binding.profileFollowingRv.adapter = adapter
-                    binding.profileFollowingRv.layoutManager = LinearLayoutManager(requireContext())
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
+            viewModel.userList.collect { userList ->
+                val adapter = FollowingAdapter(userList.toMutableList())
+                binding.profileFollowingRv.adapter = adapter
+                binding.profileFollowingRv.layoutManager = LinearLayoutManager(requireContext())
             }
         }
     }
