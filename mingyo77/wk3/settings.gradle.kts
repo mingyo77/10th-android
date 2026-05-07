@@ -24,4 +24,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "wk3"
 include(":app")
- 
