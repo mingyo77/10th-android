@@ -15,9 +15,11 @@ import com.example.wk3.fragment.HomeFragment
 import com.example.wk3.fragment.ProfileFragment
 import com.example.wk3.fragment.PurchaseFragment
 import com.example.wk3.fragment.WishlistFragment
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var dataStoreManager: DataStoreManager
