@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="88dp"
+    android:layout_height="88dp"
+    android:layout_marginEnd="8dp">
+
+    <ImageView
+        android:id="@+id/ivFollowing"
+        android:layout_width="88dp"
+        android:layout_height="88dp"
+        android:background="@color/gray_200"
+        android:scaleType="centerCrop"
+        android:layout_gravity="center" />
+</FrameLayout>
