@@ -49,7 +49,7 @@ class PurchaseFragment : Fragment() {
         purchaseAdapter = PurchaseAdapter(
             purchaseList = ArrayList(),
             onWishClick = { product ->
-                (activity as? MainActivity)?.toggleWishItem(product)
+                //(activity as? MainActivity)?.toggleWishItem(product)
             },
             onItemClick = { product ->
             }

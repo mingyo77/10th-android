@@ -34,7 +34,7 @@ class CartFragment : Fragment() {
             parentFragmentManager.beginTransaction()
                 .replace(R.id.main_container, PurchaseFragment())
                 .commit()
-            (activity as MainActivity).updateBottomMenu(R.id.purchaseFragment)
+            //(activity as MainActivity).updateBottomMenu(R.id.purchaseFragment)
         }
     }
 
