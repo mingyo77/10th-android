@@ -1,10 +1,10 @@
 package com.example.nikeappcompose.screen
 
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -14,7 +14,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.foundation.Image
 import com.example.nikeappcompose.R
 
 data class Product(
@@ -26,7 +25,7 @@ data class Product(
 @Composable
 fun ShopScreen() {
     val tabs = listOf("전체", "Tops & T-Shirts", "Sale")
-    var selectedTab by remember { mutableStateOf(0) }
+    var selectedTab by remember { mutableIntStateOf(0) }
 
     val products = listOf(
         Product("Nike Everyday Plus", "₩10,000"),
@@ -62,21 +61,19 @@ fun ShopScreen() {
 
         when (selectedTab) {
             0 -> {
-                LazyVerticalGrid(
-                    columns = GridCells.Fixed(2),
+                LazyColumn(
                     modifier = Modifier.fillMaxSize()
                 ) {
-                    items(products) { product ->
+                    items(
+                        items = products,
+                        key = { product -> product.name }
+                    ) { product ->
                         ProductItem(product = product)
                     }
                 }
             }
-            1 -> {
-                Box(modifier = Modifier.fillMaxSize())
-            }
-            2 -> {
-                Box(modifier = Modifier.fillMaxSize())
-            }
+            1 -> Box(modifier = Modifier.fillMaxSize())
+            2 -> Box(modifier = Modifier.fillMaxSize())
         }
     }
 }

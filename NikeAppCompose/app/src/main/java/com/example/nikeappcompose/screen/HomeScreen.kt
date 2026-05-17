@@ -58,7 +58,10 @@ fun HomeScreen() {
             contentPadding = PaddingValues(horizontal = 16.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            items(products) { product ->
+            items(
+                items = products,
+                key = { product -> product.name }
+            ) { product ->
                 HorizontalProductItem(product = product)
             }
         }
