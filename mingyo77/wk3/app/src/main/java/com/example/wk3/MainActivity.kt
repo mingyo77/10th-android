@@ -1,8 +1,15 @@
 package com.example.wk3
 
 import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.ui.Modifier
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
@@ -15,23 +22,37 @@ import com.example.wk3.fragment.HomeFragment
 import com.example.wk3.fragment.ProfileFragment
 import com.example.wk3.fragment.PurchaseFragment
 import com.example.wk3.fragment.WishlistFragment
+import com.example.wk3.ui.MainScreen
+import dagger.Component
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
-class MainActivity : AppCompatActivity() {
+@AndroidEntryPoint
+class MainActivity : ComponentActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var dataStoreManager: DataStoreManager
+
     //찜한 상품을 담을 리스트
     var wishList = ArrayList<Product>()
     //위시리스트에 상품을 추가/삭제 토글 기능
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        /*binding = ActivityMainBinding.inflate(layoutInflater)*/
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(binding.root)
+        setContent {
+            MaterialTheme {
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    MainScreen()
+                }
+            }
+        }
         //데이터스토어 매니저 초기화
-        dataStoreManager = DataStoreManager(this)
+        /*dataStoreManager = DataStoreManager(this)
         lifecycleScope.launch{
             dataStoreManager.getProductList().collect{ allProducts->
                 //isWish가 true(찜한)값만 wishList에 담기
@@ -88,5 +109,6 @@ class MainActivity : AppCompatActivity() {
             //수정된 리스트 저장
             dataStoreManager.saveProductList(allProducts)
         }
+    }*/
     }
 }

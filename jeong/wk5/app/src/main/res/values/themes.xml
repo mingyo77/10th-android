@@ -1,0 +1,12 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="Base.Theme.Umcweek2" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- 상태바 아이콘 색상을 어둡게 표시 -->
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:fontFamily">@font/pretendard</item>
+        <item name="fontFamily">@font/pretendard</item>
+    </style>
+
+    <style name="Theme.Umcweek2" parent="Base.Theme.Umcweek2" />
+
+</resources>

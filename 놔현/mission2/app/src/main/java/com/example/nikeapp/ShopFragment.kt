@@ -5,9 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.nikeapp.databinding.FragmentShopBinding
+import com.example.nikeapp.viewmodel.ShopViewModel
+import com.example.nikeapp.viewmodel.ShopViewModelFactory
 import com.google.android.material.tabs.TabLayout
 import kotlinx.coroutines.launch
 
@@ -15,8 +18,10 @@ class ShopFragment : Fragment() {
 
     private var _binding: FragmentShopBinding? = null
     private val binding get() = _binding!!
-    private lateinit var dataStore: ProductDataStore
     private lateinit var adapter: ProductAdapter
+    private val viewModel: ShopViewModel by viewModels {
+        ShopViewModelFactory(requireContext())
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,41 +34,38 @@ class ShopFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        dataStore = ProductDataStore(requireContext())
-
-        val dummyList = mutableListOf(
-            ProductData("Nike Everyday Plus", "₩10,000", R.drawable.home_bg),
-            ProductData("Nike Elite Crew", "₩16,000", R.drawable.home_bg),
-            ProductData("Nike Air Force 1", "₩115,000", R.drawable.home_bg),
-            ProductData("Jordan ENike", "₩115,000", R.drawable.home_bg)
-        )
-
-        adapter = ProductAdapter(dummyList, onHeartClick = { product ->
-            lifecycleScope.launch {
-                dataStore.toggleWishlist(product)
-            }
+        adapter = ProductAdapter(viewModel.dummyList, onHeartClick = { product ->
+            viewModel.toggleWishlist(product)
         })
 
         binding.shopProductRv.adapter = adapter
         binding.shopProductRv.layoutManager = GridLayoutManager(requireContext(), 2)
 
-        // 탭 클릭 이벤트
+        viewModel.loadWishlist()
+        viewModel.saveShopProducts()
+
+        lifecycleScope.launch {
+            viewModel.wishlistNames.collect { names ->
+                adapter.updateWishlist(names)
+            }
+        }
+
         binding.shopTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when (tab?.position) {
-                    0 -> { // 전체
+                    0 -> {
                         binding.shopProductRv.visibility = View.VISIBLE
                         childFragmentManager.beginTransaction()
                             .replace(R.id.shop_fragment_container, Fragment())
                             .commit()
                     }
-                    1 -> { // Tops & T-Shirts
+                    1 -> {
                         binding.shopProductRv.visibility = View.GONE
                         childFragmentManager.beginTransaction()
                             .replace(R.id.shop_fragment_container, TopsTshirtsFragment())
                             .commit()
                     }
-                    2 -> { // Sale
+                    2 -> {
                         binding.shopProductRv.visibility = View.GONE
                         childFragmentManager.beginTransaction()
                             .replace(R.id.shop_fragment_container, SaleFragment())
@@ -74,23 +76,6 @@ class ShopFragment : Fragment() {
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
             override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
-
-        // DataStore 저장
-        lifecycleScope.launch {
-            dataStore.getProducts(ProductDataStore.SHOP_PRODUCTS_KEY).collect { savedList ->
-                if (savedList.isEmpty()) {
-                    dataStore.saveProducts(ProductDataStore.SHOP_PRODUCTS_KEY, dummyList)
-                }
-            }
-        }
-
-        // 위시리스트 상태 업데이트
-        lifecycleScope.launch {
-            dataStore.getProducts(ProductDataStore.WISHLIST_PRODUCTS_KEY).collect { wishlist ->
-                val names = wishlist.map { it.name }.toSet()
-                adapter.updateWishlist(names)
-            }
-        }
     }
 
     override fun onDestroyView() {

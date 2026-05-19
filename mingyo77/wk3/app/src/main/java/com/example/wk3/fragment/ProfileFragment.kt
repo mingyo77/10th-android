@@ -6,18 +6,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.bumptech.glide.Glide
+import com.example.wk3.ViewModel.ProfileViewModel
 import com.example.wk3.adapter.FollowingAdapter
 import com.example.wk3.data.RetrofitClient
 import com.example.wk3.data.UserResponse
 import com.example.wk3.databinding.FragmentProfileBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
-
+@AndroidEntryPoint
 class ProfileFragment : Fragment() {
-
-
+    private val viewModel : ProfileViewModel by viewModels()
     private var _binding: FragmentProfileBinding? = null
     private lateinit var followingAdapter: FollowingAdapter
     private val binding get() = _binding!!
@@ -34,8 +38,31 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupRecyclerView()
-        loadUserInfo()
-        loadFollowingList()
+        viewModel.fetchUserInfo()
+        viewModel.fetchFollowingList()
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+
+                launch {
+                    viewModel.userData.collect { userResponse ->
+                        userResponse?.let {
+                            binding.textView8.text = "${it.data.firstName} ${it.data.lastName}"
+                            Glide.with(this@ProfileFragment)
+                                .load(it.data.avatar)
+                                .circleCrop()
+                                .into(binding.imageView6)
+                        }
+                    }
+                }
+
+                launch {
+                    viewModel.followingList.collect { users ->
+                        followingAdapter.updateData(users)
+                    }
+                }
+            }
+        }
     }
     private fun setupRecyclerView(){
         //빈 리스트로 시작, 어댑터로부터 받아오기
@@ -49,44 +76,6 @@ class ProfileFragment : Fragment() {
             )
         }
     }
-    private fun loadUserInfo() {
-        //viewLifecyclerOwner.lifecycleScope.launch:
-        //화면 프래그먼트 뷰 생명주기에 맞춰 코루틴 시작, 화면이 파괴되면
-        //통신도 자동으로 취소
-        viewLifecycleOwner.lifecycleScope.launch {
-            try{
-                val response = RetrofitClient.userService.getUserById(1)
-                val user = response.data
-
-                user?.let{
-                    val fullName = "${it.firstName} ${it.lastName}"
-                    binding.textView8.text = fullName
-
-                    Glide.with(this@ProfileFragment)
-                        .load(it.avatar)
-                        .circleCrop()
-                        .into(binding.imageView6)
-                }
-            } catch (e: Exception){
-                Log.e("Retrofit_Error", "연결 실패: ${e.message}")
-            }
-        }
-    }
-    private fun loadFollowingList(){
-        viewLifecycleOwner.lifecycleScope.launch{
-            try {
-                //서버에서 유저리스트 가져오기
-                val response = RetrofitClient.userService.getUsers(1)
-                val users = response.data
-                Log.d("ProfileTest", "서버에서 받아온 팔로잉 수: ${users.size}")
-                //어댑터에 데이터 전달하여 화면 갱신
-                followingAdapter.updateData(users)
-            }catch(e: Exception){
-                Log.e("Retrofit_Error", "팔로잉 목록 로드 실패: ${e.message}")
-            }
-        }
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
