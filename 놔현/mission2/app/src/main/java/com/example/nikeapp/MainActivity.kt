@@ -17,10 +17,11 @@ class MainActivity : AppCompatActivity() {
         Log.d(TAG, "onCreate")
 
         // 시작 Fragment 설정
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.main_fragmentContainer, HomeFragment())
-            .commit()
-
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.main_fragmentContainer, HomeFragment())
+                .commit()
+        }
         // BottomNavigationView 탭 전환
         binding.mainBnv.setOnItemSelectedListener { item ->
             when (item.itemId) {

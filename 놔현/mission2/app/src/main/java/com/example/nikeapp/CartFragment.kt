@@ -9,22 +9,27 @@ import com.example.nikeapp.databinding.FragmentCartBinding
 
 class CartFragment : Fragment() {
 
-    private lateinit var binding: FragmentCartBinding
+    private var _binding: FragmentCartBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentCartBinding.inflate(inflater, container, false)
+        _binding = FragmentCartBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // 주문하기 버튼 클릭 시 구매하기 탭으로 전환
         binding.cartOrderBtn.setOnClickListener {
             (activity as MainActivity).binding.mainBnv.selectedItemId = R.id.shopFragment
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">week7</string>
+    <string name="tab_home">홈</string>
+    <string name="tab_shop">구매하기</string>
+    <string name="tab_wishlist">위시리스트</string>
+    <string name="tab_cart">장바구니</string>
+    <string name="tab_profile">프로필</string>
+    <string name="home_discover">Discover</string>
+    <string name="wishlist_title">위시리스트</string>
+    <string name="profile_title">프로필</string>
+    <string name="cart_empty_message">장바구니가 비어 있습니다.\n제품을 추가하면 여기에 표시됩니다.</string>
+    <string name="cart_order">주문하기</string>
+    <string name="shop_category_all">전체</string>
+    <string name="shop_category_tops">Tops-T-Shirts</string>
+    <string name="shop_category_shoes">Shoes</string>
+</resources>
